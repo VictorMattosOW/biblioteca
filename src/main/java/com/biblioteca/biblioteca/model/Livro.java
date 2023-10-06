@@ -35,15 +35,20 @@ public class Livro {
     return name;
   }
 
-  public int getQuantidade() {
-    return quantidade;
-  }
-
   public Integer getId() {
     return id;
   }
 
-  public void setQuantidade(int quantidade) {
-    this.quantidade = quantidade;
+  public int getQuantidade() {
+    return quantidade;
+  }
+
+  public void hasBookAtStock() {
+    System.out.println(this.quantidade);
+    if (this.quantidade >= 1) {
+      this.quantidade--;
+    } else {
+      throw new IllegalArgumentException("Livro fora de estoque");
+    }
   }
 }

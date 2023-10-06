@@ -5,9 +5,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
 import java.util.List;
 
 @Entity
+@Table(name = "users")
 public class User {
 
   @Id
@@ -17,10 +20,14 @@ public class User {
   @Column(unique = true)
   private String email;
 
+  @Column(name = "user_name")
   private String name;
+
   private String telefone;
-  private int qdteMaxLivos;
-  private List<String> bookList;
+  private int qdteMaxLivos = 3;
+
+  @ManyToMany
+  private List<Livro> bookList;
 
   public User() {}
 
@@ -30,11 +37,11 @@ public class User {
     this.telefone = telefone;
   }
 
-  public List<String> getListBooks() {
+  public List<Livro> getListBooks() {
     return bookList;
   }
 
-  public void SetBookList(List<String> bookList) {
+  public void setBookList(List<Livro> bookList) {
     this.bookList = bookList;
   }
 
@@ -52,5 +59,19 @@ public class User {
 
   public String getTelefone() {
     return telefone;
+  }
+
+  private boolean podePegarLivro() {
+    return this.bookList.size() <= this.qdteMaxLivos;
+  }
+
+  public void pegaLivroEmprestado(Livro livro) {
+    if (podePegarLivro()) {
+      this.bookList.add(livro);
+    } else {
+      throw new IllegalArgumentException(
+        "Você não pode pegar livro emprestado"
+      );
+    }
   }
 }

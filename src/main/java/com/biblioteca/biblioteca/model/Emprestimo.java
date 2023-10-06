@@ -5,7 +5,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import java.util.Date;
-import java.util.UUID;
 
 @Entity
 public class Emprestimo {
@@ -16,14 +15,27 @@ public class Emprestimo {
 
   Date dataEmprestimo;
   Date dataDevolucao;
-  UUID id_pessoa;
-  UUID id_livro;
+  Integer id_pessoa;
+  Integer id_livro;
 
   public Emprestimo() {}
 
-  public Emprestimo(Date dataEmprestimo, UUID id_pessoa, UUID id_livro) {
-    this.dataEmprestimo = dataEmprestimo;
+  public Emprestimo(Integer id_pessoa, Integer id_livro, Date dataEmprestimo) {
     this.id_pessoa = id_pessoa;
     this.id_livro = id_livro;
+    this.dataEmprestimo = dataEmprestimo;
+  }
+
+  public Emprestimo(Integer id_pessoa, Integer id_livro) {
+    this.id_pessoa = id_pessoa;
+    this.id_livro = id_livro;
+  }
+
+  public Integer getId_livro() {
+    return id_livro;
+  }
+
+  public Integer getId_pessoa() {
+    return id_pessoa;
   }
 }

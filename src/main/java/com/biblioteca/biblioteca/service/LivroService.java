@@ -2,6 +2,7 @@ package com.biblioteca.biblioteca.service;
 
 import com.biblioteca.biblioteca.model.Livro;
 import com.biblioteca.biblioteca.repository.LivroRepository;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,5 +22,9 @@ public class LivroService {
 
   public Livro findByName(String name) {
     return this.repository.findByName(name);
+  }
+
+  public Optional<Livro> findById(Integer id) {
+    return this.repository.findById(id);
   }
 }

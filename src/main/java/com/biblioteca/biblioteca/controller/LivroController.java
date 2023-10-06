@@ -2,6 +2,7 @@ package com.biblioteca.biblioteca.controller;
 
 import com.biblioteca.biblioteca.model.Livro;
 import com.biblioteca.biblioteca.service.LivroService;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,5 +32,10 @@ public class LivroController {
   @GetMapping("/name")
   public ResponseEntity<Livro> getLivroByName(@RequestParam String name) {
     return ResponseEntity.ok(service.findByName(name));
+  }
+
+  @GetMapping("/{id}")
+  public Optional<Livro> getLivroById(int id) {
+    return service.findById(id);
   }
 }
