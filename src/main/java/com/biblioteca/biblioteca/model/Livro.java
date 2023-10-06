@@ -44,7 +44,6 @@ public class Livro {
   }
 
   public void hasBookAtStock() {
-    System.out.println(this.quantidade);
     if (this.quantidade >= 1) {
       this.quantidade--;
     } else {
