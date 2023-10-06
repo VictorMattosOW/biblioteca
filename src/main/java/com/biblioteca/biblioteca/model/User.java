@@ -8,7 +8,7 @@ import jakarta.persistence.Id;
 import java.util.List;
 
 @Entity
-public class Usuario {
+public class User {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,33 +17,25 @@ public class Usuario {
   @Column(unique = true)
   private String email;
 
-  private String nome;
+  private String name;
   private String telefone;
   private int qdteMaxLivos;
-  private List<String> listaLivros;
+  private List<String> bookList;
 
-  public Usuario() {}
+  public User() {}
 
-  public Usuario(String nome, String email, String telefone) {
-    this.nome = nome;
+  public User(String name, String email, String telefone) {
+    this.name = name;
     this.email = email;
     this.telefone = telefone;
   }
 
-  public List<String> getListaLivros() {
-    return listaLivros;
+  public List<String> getListBooks() {
+    return bookList;
   }
 
-  public void setListaLivros(List<String> listaLivros) {
-    this.listaLivros = listaLivros;
-  }
-
-  public int getQdteMaxLivos() {
-    return qdteMaxLivos;
-  }
-
-  public void setQdteMaxLivos(int qdteMaxLivos) {
-    this.qdteMaxLivos = qdteMaxLivos;
+  public void SetBookList(List<String> bookList) {
+    this.bookList = bookList;
   }
 
   public Integer getId() {
@@ -54,8 +46,8 @@ public class Usuario {
     return email;
   }
 
-  public String getNome() {
-    return nome;
+  public String getName() {
+    return name;
   }
 
   public String getTelefone() {
