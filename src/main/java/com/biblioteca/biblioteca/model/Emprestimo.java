@@ -26,6 +26,12 @@ public class Emprestimo {
     this.dataEmprestimo = dataEmprestimo;
   }
 
+  public Emprestimo(Date dataDevolucao, Integer id_pessoa, Integer id_livro) {
+    this.dataDevolucao = dataDevolucao;
+    this.id_pessoa = id_pessoa;
+    this.id_livro = id_livro;
+  }
+
   public Emprestimo(Integer id_pessoa, Integer id_livro) {
     this.id_pessoa = id_pessoa;
     this.id_livro = id_livro;

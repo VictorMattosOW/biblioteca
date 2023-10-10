@@ -24,7 +24,6 @@ public class User {
   private String name;
 
   private String telefone;
-  private int qdteMaxLivos = 3;
 
   @ManyToMany
   private List<Livro> bookList;
@@ -61,17 +60,7 @@ public class User {
     return telefone;
   }
 
-  private boolean podePegarLivro() {
-    return this.bookList.size() <= this.qdteMaxLivos;
-  }
-
-  public void pegaLivroEmprestado(Livro livro) {
-    if (podePegarLivro()) {
-      this.bookList.add(livro);
-    } else {
-      throw new IllegalArgumentException(
-        "Você não pode pegar livro emprestado"
-      );
-    }
+  public List<Livro> getBookList() {
+    return bookList;
   }
 }

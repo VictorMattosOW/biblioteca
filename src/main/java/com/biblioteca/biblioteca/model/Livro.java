@@ -43,11 +43,7 @@ public class Livro {
     return quantidade;
   }
 
-  public void hasBookAtStock() {
-    if (this.quantidade >= 1) {
-      this.quantidade--;
-    } else {
-      throw new IllegalArgumentException("Livro fora de estoque");
-    }
+  public void setQuantidade(int quantidade) {
+    this.quantidade = quantidade;
   }
 }

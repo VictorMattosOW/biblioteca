@@ -22,32 +22,42 @@ public class EmprestimoService {
   @Autowired
   private LivroService livroRepository;
 
+  private final int qdteMaxLivros = 3;
+
   public Emprestimo createEmprestimo(Integer id_user, Integer id_book) {
-    User user = this.findUser(id_user);
-    Livro livro = this.findBook(id_book);
-    livro.hasBookAtStock();
-    user.pegaLivroEmprestado(livro);
-    Date date = new Date();
-    Emprestimo emprestimo = new Emprestimo(id_user, id_book, date);
+    User user = findUser(id_user);
+    Livro livro = findBook(id_book);
+
+    if (livro.getQuantidade() < 1) {
+      throw new IllegalArgumentException("Livro fora de estoque");
+    }
+
+    if (user.getBookList().size() >= this.qdteMaxLivros) {
+      throw new IllegalArgumentException(
+        "Você não pode pegar mais livros emprestados"
+      );
+    }
+
+    livro.setQuantidade(livro.getQuantidade() - 1);
+    user.getBookList().add(livro);
+
+    Date now = new Date();
+    Emprestimo emprestimo = new Emprestimo(id_user, id_book, now);
     return this.save(emprestimo);
   }
 
   private User findUser(Integer id) {
-    Optional<User> existentUser = this.userRepository.findById(id);
-    if (existentUser.isPresent()) {
-      return existentUser.get();
-    } else {
-      throw new IllegalArgumentException("Usuário não encontrado.");
-    }
+    Optional<User> existentUser = userRepository.findById(id);
+    return existentUser.orElseThrow(() ->
+      new IllegalArgumentException("Usuário não encontrado.")
+    );
   }
 
   private Livro findBook(Integer id) {
-    Optional<Livro> existenLivro = this.livroRepository.findById(id);
-    if (existenLivro.isPresent()) {
-      return existenLivro.get();
-    } else {
-      throw new IllegalArgumentException("Livro não encontrado.");
-    }
+    Optional<Livro> existentLivro = livroRepository.findById(id);
+    return existentLivro.orElseThrow(() ->
+      new IllegalArgumentException("Usuário não encontrado.")
+    );
   }
 
   public Emprestimo save(Emprestimo emprestimo) {
